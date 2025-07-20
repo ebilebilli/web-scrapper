@@ -16,7 +16,7 @@ def scrape_profiles(count:int = 1, subject:str = 'anglais'):
 
     driver = webdriver.Chrome(options=options)
 
-    start_url = f"https://www.superprof.ma/{subject}/anglais/maroc/"
+    start_url = f"https://www.superprof.ma/cours/{subject}/maroc/"
     driver.get(start_url)
     time.sleep(3)
 

@@ -1,5 +1,6 @@
 # 🕷 Superprof Profile Scraper
-![Selenium Logo](https://upload.wikimedia.org/wikipedia/commons/d/d5/Selenium_Logo.png)
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Selenium_Logo.png" width="100"/>
+
 
 This Python script scrapes teacher profiles with selenium from [superprof.ma](https://www.superprof.ma) based on a subject you choose.
 

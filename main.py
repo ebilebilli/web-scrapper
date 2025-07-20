@@ -6,8 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+from subjects import subjects
 
-def scrape_profiles(count:int = 1):
+def scrape_profiles(count:int = 1, subject:str = 'anglais'):
     brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
     options = Options()
     options.binary_location = brave_path
@@ -15,7 +16,7 @@ def scrape_profiles(count:int = 1):
 
     driver = webdriver.Chrome(options=options)
 
-    start_url = "https://www.superprof.ma/cours/anglais/maroc/"
+    start_url = f"https://www.superprof.ma/{subject}/anglais/maroc/"
     driver.get(start_url)
     time.sleep(3)
 
@@ -67,4 +68,6 @@ def scrape_profiles(count:int = 1):
 
 if __name__ == "__main__":
     count = int(input("How many profiles do you want to scrape? "))
+    subject = input(f"Please choose one of the subjects from the list:\n{chr(10).join(subjects)}\nYour choice: ")
+
     scrape_profiles(count)

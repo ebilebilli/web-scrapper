@@ -1,3 +1,4 @@
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -15,9 +16,7 @@ wait = WebDriverWait(driver, 10)
 
 start_url = "https://www.superprof.ma/cours/anglais/maroc/"
 driver.get(start_url)
-time.sleep(4)
 
-# Profil linklərini toplayırıq (5 ədəd)
 profile_links = []
 links_elements = driver.find_elements(By.CSS_SELECTOR, "a[href$='.html']")
 
@@ -26,7 +25,7 @@ for link_elem in links_elements:
     if href and href.startswith("https://www.superprof.ma") and href not in profile_links:
         if '.html' in href and '/cours/' not in href:
             profile_links.append(href)
-    if len(profile_links) >= 5:
+    if len(profile_links) >= 12:
         break
 
 def get_text(selector, index=0):
@@ -39,12 +38,8 @@ def get_text(selector, index=0):
     except:
         return "Non Found"
 
-print("\nProfile informations:\n")
-
 for idx, profile_url in enumerate(profile_links, 1):
     driver.get(profile_url)
-    time.sleep(4)
-
     name = get_text("div.name > p")
     response = get_text("span.value", 1)
     price = get_text("span.value", 0)
@@ -60,15 +55,19 @@ for idx, profile_url in enumerate(profile_links, 1):
     lesson_place = get_text("li.webcam a")
     about_me = get_text("h1")
 
-    print(f"Profil {idx}:")
-    print(f"Name: {name}")
-    print(f"Response Time: {response}")
-    print(f"Price: {price}")
-    print(f"Students: {students}")
-    print(f"Rating: {rating}")
-    print(f"Availability: {availability}")
-    print(f"Lesson style: {lesson_place}")
-    print(f"About Me: {about_me}")
-    print("-" * 50)
+    profile_data = {
+    "Profile": idx,
+    "Name": name,
+    "Response Time": response,
+    "Price": price,
+    "Students": students,
+    "Rating": rating,
+    "Availability": availability,
+    "Lesson style": lesson_place,
+    "About Me": about_me
+    }
 
+
+    with open('profiles.json', 'a') as file:
+        json.dump(profile_data, file, indent=4)
 driver.quit()

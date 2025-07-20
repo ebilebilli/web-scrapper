@@ -8,7 +8,17 @@ import time
 
 from subjects import subjects
 
-def scrape_profiles(count:int = 1, subject:str = 'anglais'):
+def scrape_profiles(count: int = 1, subject: str = 'anglais'):
+    """
+    Scrapes tutor profiles from superprof.ma for a given subject.
+
+    Args:
+        count (int): Number of profiles to scrape. Defaults to 1.
+        subject (str): The subject to filter tutors by. Defaults to 'anglais'.
+
+    Saves:
+        A JSON file ('profiles.json') with the collected tutor information.
+    """
     brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
     options = Options()
     options.binary_location = brave_path
@@ -31,6 +41,16 @@ def scrape_profiles(count:int = 1, subject:str = 'anglais'):
             break
 
     def get_text(selector, index=0):
+        """
+        Helper function to extract text from an element using a CSS selector.
+
+        Args:
+            selector (str): The CSS selector to locate elements.
+            index (int): The index of the element in the list (default is 0).
+
+        Returns:
+            str: The extracted text or 'Not found' if not present.
+        """
         try:
             elements = driver.find_elements(By.CSS_SELECTOR, selector)
             if elements and len(elements) > index:
@@ -67,6 +87,10 @@ def scrape_profiles(count:int = 1, subject:str = 'anglais'):
     driver.quit()
 
 if __name__ == "__main__":
+    """
+    Entry point for running the script interactively.
+    Prompts the user for the number of profiles and subject, then runs scraping.
+    """
     count = int(input("How many profiles do you want to scrape? "))
     subject = input(f"Please choose one of the subjects from the list:\n{chr(10).join(subjects)}\nYour choice: ")
 

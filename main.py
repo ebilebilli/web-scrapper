@@ -61,8 +61,8 @@ def scrape_profiles(count:int = 1, subject:str = 'anglais'):
         print(profile)
         print("-" * 40)
 
-    with open("profiles.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, ensure_ascii=False, indent=4)
+    with open("profiles.json", "a") as file:
+        json.dump(results, file, indent=4)
 
     driver.quit()
 
